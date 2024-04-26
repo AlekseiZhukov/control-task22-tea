@@ -1,0 +1,10 @@
+<section class="pt-4 pb-5">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-5">{{title}}</h2>
+    <div class="row row-cols-auto g-4 justify-content-center">
+      <tea-card *ngFor="let tea of products" [product]="tea"></tea-card>
+      <div *ngIf="isEmptySearchData"> Ничего не найдено</div>
+    </div>
+  </div>
+</section>
+<loader *ngIf="isLoading"></loader>

@@ -1,1 +1,160 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  font-family: Arial, sans-serif;
+  color: #000;
+}
+
+.section__slider-slide {
+  height: 640px;
+}
+
+.slick-prev {
+  left: 13px;
+  z-index: 100;
+}
+
+.slick-next {
+  right: 33px;
+  z-index: 100;
+}
+
+.slick-prev:before {
+  content: url("./assets/images/left-arrow.svg");
+}
+
+.slick-next:before {
+  content: url("./assets/images/right-arrow.svg");
+}
+
+.slick-prev:before, .slick-next:before {
+  width: 40px;
+  height: 40px;
+  opacity: 1;
+}
+
+.card a.product__image {
+  cursor: zoom-in;
+}
+
+.wrap__accordion {
+  max-width: 856px;
+}
+
+.ui-accordion .ui-accordion-header {
+  padding: 25px 23px;
+  border-radius: 10px;
+  background: linear-gradient(0deg, #076BFF 0%, #007BFF 100%);
+  color: #FFF;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  border: none;
+  position: relative;
+}
+
+.ui-accordion-header::after {
+  content: url("./assets/images/close.svg");
+  right: 26px;
+  position: absolute;
+  transition: .3s;
+  line-height: 0;
+}
+
+.ui-accordion-header-active.ui-accordion-header::after {
+  transform: scale(1, -1);
+}
+
+.ui-accordion .ui-accordion-content {
+  padding: 16px 22px 24px 22px;
+  width: 100%;
+}
+
+.ui-accordion-header-active, .ui-accordion-header, .ui-accordion-content {
+  border: none;
+}
+
+.wrap__form {
+  max-width: 636px;
+}
+
+@media screen and (max-width: 1023px) {
+  .section__slider-slide {
+    height: 540px;
+  }
+
+  .slider-slide__title {
+    font-size: 38px !important;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .section__slider-slide {
+    height: 500px;
+    padding-left: 0 !important;
+    justify-content: center;
+  }
+
+  .section__slider-slide > div {
+    margin-left: 0 !important;
+    max-width: 80%;
+    text-align: center;
+  }
+
+  .section__slider-slide > div > * {
+    margin-left: 0 !important;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .slick-prev:before {
+    content: url("./assets/images/left-arrow-small.svg");
+  }
+
+  .slick-next:before {
+    content: url("./assets/images/right-arrow-small.svg");
+  }
+
+  .slick-prev {
+    left: 0;
+  }
+
+  .slick-next {
+    right: 10px;
+  }
+
+  .slick-prev:before, .slick-next:before {
+    width: 30px;
+    height: 30px;
+  }
+
+  .section__slider-slide > div {
+    margin-left: 0 !important;
+    max-width: 290px;
+  }
+
+  .section__slider-slide_content {
+    max-width: 310px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .slider-slide__title {
+    font-size: 28px;
+  }
+
+  .ui-accordion-header::after,
+  .ui-accordion-header-active.ui-accordion-header::after {
+    display: none;
+  }
+}
+
+
+@media screen and (max-width: 375px) {
+  .section__slider-slide_content {
+    max-width: 242px;
+  }
+}
+
