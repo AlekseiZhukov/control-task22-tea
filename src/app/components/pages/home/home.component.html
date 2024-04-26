@@ -1,0 +1,68 @@
+<section class="pt-4 pb-5">
+  <div class="container">
+
+    <div class="container"
+         style="
+                    background-image: url(./assets/images/image10.png);
+                     background-size: cover; background-position: center">
+      <div class="section__slider-slide d-flex align-items-center ps-5 overflow-hidden">
+        <div class="ms-5">
+          <div class="fw-bold fs-1 ms-4 mb-5">Скидки на травяные чаи</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+<section class="pt-4 pb-5">
+  <div class="container ">
+    <h2 class="fw-bold text-center mb-5">Ответы на часто задаваемые вопросы</h2>
+    <div class="wrap__accordion mx-auto">
+      <div id="accordion">
+        <h3>Собираете ли вы подарочные боксы?</h3>
+        <div>
+          <p>
+            Да, у нас есть такая услуга. Мы можем собрать подарочный бокс на любой вкус, объем и стоимость!
+          </p>
+        </div>
+        <h3>Сколько у вас разновидностей чая?</h3>
+        <div>
+          <p>
+            Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+            purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+            velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+            suscipit faucibus urna.
+          </p>
+        </div>
+        <h3>В какой срок осуществляется доставка?</h3>
+        <div>
+          <p>
+            Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
+            Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
+            ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
+            lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
+          </p>
+        </div>
+        <h3>У вас обновляется ассортимент?</h3>
+        <div>
+          <p>
+            Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+            et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+            faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+            mauris vel est.
+          </p>
+        </div>
+        <h3>Какого объема у вас пачки чая?</h3>
+        <div>
+          <p>
+            Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+            et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+            faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+            mauris vel est.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<pop-up *ngIf="isPopUp"  [isPopUp]="isPopUp" (showPopUpEvent)="togglePopUp($event)"></pop-up>

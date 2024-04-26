@@ -1,0 +1,112 @@
+<section class="pt-4 pb-5">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-5" *ngIf="!isShowMessageCreateOrder">Сделать заказ</h2>
+    <div class="wrap__form mx-auto ">
+      <div *ngIf="isShowMessageCreateOrder">
+        <div class="text-center">
+          Спасибо за заказ!
+        </div>
+      </div>
+      <form [formGroup]="orderForm" (ngSubmit)="sentOrder()" *ngIf="!isShowMessageCreateOrder">
+        <div class="row mb-3">
+          <div class="col-md">
+            <label for="orderName" class="form-label">Наименование чая</label>
+            <input type="text" class="form-control mb-2" formControlName="orderName" id="orderName">
+          </div>
+          <div class="w-100 invalid-feedback"
+               *ngIf="orderName?.invalid && (orderName?.dirty || orderName?.touched) && orderName?.errors?.['required']">
+            Укажите наименование чая
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md">
+            <label for="name" class="form-label">Имя</label>
+            <input type="text" class="form-control mb-2" id="name" formControlName="name">
+            <div class="w-100" *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+              <div class="invalid-feedback" *ngIf="name?.errors?.['required']">
+                Укажите имя
+              </div>
+              <div class="invalid-feedback" *ngIf="name?.errors?.['pattern']">
+                Не корректное имя
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <label for="lastName" class="form-label">Фамилия</label>
+            <input type="text" class="form-control mb-2" id="lastName" formControlName="lastName">
+            <div class="w-100" *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+              <div class="invalid-feedback" *ngIf="lastName?.errors?.['required']">
+                Укажите фамилию
+              </div>
+              <div class="invalid-feedback" *ngIf="lastName?.errors?.['pattern']">
+                Не корректная фамилия
+              </div>
+            </div>
+          </div>
+          <div class="col-md">
+            <label for="phone" class="form-label">Телефон</label>
+            <input type="tel" class="form-control mb-2" id="phone" formControlName="phone">
+            <div class="w-100" *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)">
+              <div class="invalid-feedback" *ngIf="phone?.errors?.['required']">
+                Укажите телефон
+              </div>
+              <div class="invalid-feedback" *ngIf="phone?.errors?.['phone']">
+                Не корректный номер
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md">
+            <label for="country" class="form-label">Страна</label>
+            <input type="text" class="form-control mb-2" id="country" formControlName="country">
+            <div class="invalid-feedback"
+                 *ngIf="country?.invalid && (country?.dirty || country?.touched) && country?.errors?.['required']">
+              Укажите страну
+            </div>
+          </div>
+          <div class="col-md">
+            <label for="postcode" class="form-label">Индекс</label>
+            <input type="text" class="form-control mb-2" id="postcode" formControlName="postcode">
+            <div class="invalid-feedback"
+                 *ngIf="postcode?.invalid && (postcode?.dirty || postcode?.touched) && postcode?.errors?.['required']">
+              Укажите почтовый индекс
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <label for="address" class="form-label">Адрес</label>
+            <input type="text" class="form-control mb-2" id="address" formControlName="address">
+            <div class="w-100" *ngIf="address?.invalid && (address?.dirty || address?.touched)">
+              <div class="invalid-feedback" *ngIf="address?.errors?.['required']">
+                Укажите адрес
+              </div>
+              <div class="invalid-feedback" *ngIf="address?.errors?.['address']">
+                Не корректный адрес
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md">
+            <label for="comment" class="form-label">Комментарий к заказу</label>
+            <textarea class="form-control mb-2" id="comment"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-4 hvr-shadow"
+                style="--bs-btn-padding-y: .37rem; --bs-btn-padding-x: 2.75rem;"
+                [disabled]="isSubmitButtonDisabled"
+        >
+          Заказать
+        </button>
+      </form>
+      <div *ngIf="isShowErrorCreateOrder" class="text-danger mt-2">
+        Произошла ошибка. Попробуйте еще раз.
+      </div>
+    </div>
+  </div>
+</section>
+
+
+

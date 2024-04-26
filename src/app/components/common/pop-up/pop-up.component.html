@@ -1,0 +1,21 @@
+<div
+  [class]="{modal: true, fade:true, show:isPopUp}"
+  [style.display]="isPopUp ? 'block' : 'none'"
+  [style.background-color]="'#0000008a'"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  (click)="togglePopUp()"
+>
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"> Посмотрите наши чайные коллекции</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer flex justify-content-center" *ngIf="isShowButton">
+        <a [routerLink]="'/products'" class="btn btn-primary" >Смотреть</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div class="col d-flex justify-content-center">
+  <div class="card " style="width: 26rem;">
+    <a href="{{product.image}}" class="product__image  cursor-zoom-in">
+      <img src="{{product.image}}" class="card-img-top" alt="tea bag">
+    </a>
+    <div class="card-body">
+      <h5 class="card-title fw-bold pb-1">{{product.title}}</h5>
+      <p class="card-text pb-1 mb-4">{{product.description | shortenText: 100}}</p>
+      <a [routerLink]="['/products', product.id]" class="btn btn-primary hvr-shadow"
+         style="--bs-btn-padding-y: .37rem; --bs-btn-padding-x: 3.34rem;">Подробнее</a>
+    </div>
+  </div>
+</div>
