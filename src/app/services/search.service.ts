@@ -7,7 +7,7 @@ import {Subject} from "rxjs";
 export class SearchService {
 
   constructor() { }
-  public searchString$: Subject<string | null> = new Subject();
+  public searchString$: Subject<string | undefined> = new Subject();
   public searchString: string = '';
 
   setSearchString(searchString: string) {

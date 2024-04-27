@@ -11,11 +11,13 @@ import {ProductsService} from "../../../services/products.service";
   styleUrls: ['./order.component.scss']
 })
 export class OrderComponent implements OnInit, OnDestroy {
-  private subscription: Subscription | null = null;
+/*  private subscription: Subscription | null = null;
   private subscriptionOrder: Subscription | null = null;
   private subscriptionValidForm: Subscription | null = null;
+
+  private subscriptionError: Subscription | null = null;*/
+  private subscription: Subscription = new Subscription();
   private observableError: Observable<boolean>;
-  private subscriptionError: Subscription | null = null;
 
   isSubmitButtonDisabled: boolean = true;
   isShowMessageCreateOrder: boolean = false;
@@ -76,31 +78,31 @@ export class OrderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.subscription = this.activateRoute.queryParams.subscribe((params) => {
+    this.subscription.add( this.activateRoute.queryParams.subscribe((params) => {
       if (params['product']) {
         this.orderForm.controls.orderName.setValue(params['product']);
         this.orderForm.controls.orderName.disable();
       }
-    })
+    }))
 
-    this.subscriptionValidForm = this.orderForm.statusChanges
+    this.subscription.add( this.orderForm.statusChanges
       .subscribe((params) => {
         this.isSubmitButtonDisabled = params !== 'VALID';
-      })
+      }))
 
   }
 
   ngOnDestroy() {
-    this.subscription?.unsubscribe();
-    this.subscriptionOrder?.unsubscribe();
+    this.subscription.unsubscribe();
+/*    this.subscriptionOrder?.unsubscribe();
     this.subscriptionValidForm?.unsubscribe();
-    this.subscriptionError?.unsubscribe();
+    this.subscriptionError?.unsubscribe();*/
   }
 
   sentOrder() {
     this.isShowErrorCreateOrder = false;
     this.isSubmitButtonDisabled = true;
-    this.subscriptionOrder = this.productsService.createOrder({
+    this.subscription.add(this.productsService.createOrder({
       name: this.orderForm.controls.name.value,
       last_name: this.orderForm.controls.lastName.value,
       phone: this.orderForm.controls.phone.value,
@@ -122,18 +124,18 @@ export class OrderComponent implements OnInit, OnDestroy {
             this.orderForm.reset();
             this.isShowMessageCreateOrder = true;
           } else {
-            this.subscriptionError = this.observableError.subscribe((param: boolean) => {
+            this.subscription.add(this.observableError.subscribe((param: boolean) => {
              this.isShowErrorCreateOrder = param;
-            })
+            }))
           }
         },
         error: () => {
           this.isSubmitButtonDisabled = false;
-          this.subscriptionError = this.observableError.subscribe((param: boolean) => {
+          this.subscription.add(this.observableError.subscribe((param: boolean) => {
             this.isShowErrorCreateOrder = param;
-          })
+          }))
         }
-      })
+      }))
   }
 
 }

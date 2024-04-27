@@ -1,8 +1,6 @@
 <div
-  [class]="{modal: true, fade:true, show:isPopUp}"
-  [style.display]="isPopUp ? 'block' : 'none'"
-  [style.background-color]="'#0000008a'"
-  id="exampleModal"
+  #modal
+  class="modal fade"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   (click)="togglePopUp()"
@@ -13,7 +11,7 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel"> Посмотрите наши чайные коллекции</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-footer flex justify-content-center" *ngIf="isShowButton">
+      <div class="modal-footer flex justify-content-center" >
         <a [routerLink]="'/products'" class="btn btn-primary" >Смотреть</a>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductsService} from "../../../services/products.service";
 import {IProduct} from "../../../types/product.interface";
-import {Subscription, tap} from "rxjs";
+import {mergeMap, Observable, Subscription, tap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SearchService} from "../../../services/search.service";
 
@@ -12,8 +12,7 @@ import {SearchService} from "../../../services/search.service";
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription | null = null;
-  private subscriptionSearch: Subscription | null = null;
+  private subscription: Subscription = new Subscription();
   products: IProduct[] = [];
   isLoading: boolean = false;
   title: string = 'Наши чайные коллекции';
@@ -27,28 +26,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
     if(this.searchService.searchString) {
       this.title = `Результаты поиска по запросу ${this.searchService.searchString}`
     }
-    this.getProducts(this.searchService.searchString);
-    this.subscriptionSearch = this.searchService.searchString$.subscribe((searchString) => {
-      if (searchString) {
-        this.title = `Результаты поиска по запросу ${searchString}`;
-        this.getProducts(searchString)
-      } else {
-        this.title = 'Наши чайные коллекции';
-        this.getProducts();
-      }
-    })
-  }
 
-  ngOnDestroy() {
-    this.subscription?.unsubscribe();
-    this.subscriptionSearch?.unsubscribe();
-  }
-
-  getProducts(searchString?: string) {
-    this.isLoading = true;
-    this.subscription = this.productsService.getProducts(searchString)
+    this.subscription.add(this.productsService.getProducts(this.searchService.searchString)
       .pipe(
-        tap(() => {
+        tap(()=> {
           this.isLoading = false;
           this.isEmptySearchData = false;
         })
@@ -65,6 +46,45 @@ export class ProductsComponent implements OnInit, OnDestroy {
           //this.router.navigate(['/'])
         }
       })
+    )
+    this.subscription.add(this.searchService.searchString$
+      .pipe(
+        tap((searchString) => {
+          if (searchString) {
+            this.title = `Результаты поиска по запросу ${searchString}`;
+          } else {
+            this.title = 'Наши чайные коллекции';
+          }
+        }),
+        mergeMap( (string): Observable<IProduct[]> => {
+          return this.productsService.getProducts(string)
+        }),
+      )
+      .pipe(
+        tap(()=> {
+          this.isLoading = false;
+          this.isEmptySearchData = false;
+        })
+      )
+      .subscribe({
+        next: (data) => {
+          if (data.length <= 0) {
+            this.isEmptySearchData = true;
+          }
+          this.products = data
+        },
+        error: (error) => {
+          console.log(error);
+          //this.router.navigate(['/'])
+        }
+      })
+    )
+
   }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 
 }
