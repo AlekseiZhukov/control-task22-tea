@@ -43,24 +43,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.log(error);
-          //this.router.navigate(['/'])
+          this.router.navigate(['/'])
         }
       })
     )
     this.subscription.add(this.searchService.searchString$
       .pipe(
-        tap((searchString) => {
+        mergeMap( (searchString): Observable<IProduct[]> => {
           if (searchString) {
             this.title = `Результаты поиска по запросу ${searchString}`;
           } else {
             this.title = 'Наши чайные коллекции';
           }
+          return this.productsService.getProducts(searchString);
         }),
-        mergeMap( (string): Observable<IProduct[]> => {
-          return this.productsService.getProducts(string)
-        }),
-      )
-      .pipe(
         tap(()=> {
           this.isLoading = false;
           this.isEmptySearchData = false;
@@ -71,20 +67,19 @@ export class ProductsComponent implements OnInit, OnDestroy {
           if (data.length <= 0) {
             this.isEmptySearchData = true;
           }
+          console.log('mergeMap subscribe next: ', data)
           this.products = data
         },
         error: (error) => {
           console.log(error);
-          //this.router.navigate(['/'])
+          this.router.navigate(['/'])
         }
       })
     )
-
   }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
 
 }

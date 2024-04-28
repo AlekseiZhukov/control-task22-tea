@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {IProduct} from "../types/product.interface";
-import {Observable} from "rxjs";
+import {map, Observable,
+} from "rxjs";
 import {IOrder} from "../types/order.interface";
 
 @Injectable()
@@ -10,10 +11,19 @@ export class ProductsService {
   constructor(private http: HttpClient) { }
 
   getProducts(searchString?: string):Observable<IProduct[]> {
+    let params = new HttpParams();
     if (searchString) {
-      return this.http.get<IProduct[]>(`https://testologia.ru/tea?search=${searchString}`);
+      params = params.append('search', searchString);
     }
-    return this.http.get<IProduct[]>('https://testologia.ru/tea');
+    return this.http.get<IProduct[]>('https://testologia.ru/tea', {params})
+      .pipe(
+        map( products => {
+          if (Array.isArray(products)) {
+            return products;
+          }
+          return Object.values(products);
+        })
+      );
   }
 
   getProduct(id: number): Observable<IProduct> {
